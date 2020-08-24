@@ -58,10 +58,42 @@ public class BinaryTree
         }
        
     }
-    public void print(TreeNode root)
+    public void Ascending(TreeNode root)
     {
-        
-        Debug.Log(root.left.right);
+        if (root != null)
+        {
+            
+            Ascending(root.left);
+            Debug.Log(root.data);
+            Ascending(root.right);
+        }
+    }
+    public void Descending(TreeNode root)
+    {
+        if (root != null)
+        {
+
+            Descending(root.right);
+            Debug.Log(root.data);
+            Descending(root.left);
+        }
+    }
+    public void DeleteLeaf(int number, TreeNode root)
+    {
+        if (root != null)
+        {
+            //loops down to the right most and deletes
+            DeleteLeaf(number,root.right);
+            if (root.right.data == number)
+            {
+                root.right = null;
+            }
+            if (root.left.data == number)
+            {
+                root.left = null;
+            }
+            DeleteLeaf(number,root.left);
+        }
     }
 }
 public class BinaryTreeLinkedList : MonoBehaviour
@@ -80,6 +112,9 @@ public class BinaryTreeLinkedList : MonoBehaviour
         tree.Insert(newNode);
         newNode = new TreeNode(22);
         tree.Insert(newNode);
-        tree.print(tree.header);
+        tree.Ascending(tree.header);
+        tree.DeleteLeaf(22, tree.header);
+        tree.Descending(tree.header);
+
     }
 }
